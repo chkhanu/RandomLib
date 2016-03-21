@@ -3,7 +3,7 @@
 namespace RandomLib\Source;
 
 use SecurityLib\Strength;
-
+use SecurityLib\Util;
 
 
 class MicroTimeTest extends \PHPUnit_Framework_TestCase {
@@ -41,7 +41,7 @@ class MicroTimeTest extends \PHPUnit_Framework_TestCase {
     public function testGenerate($length, $not) {
         $rand = new MicroTime;
         $stub = $rand->generate($length);
-        $this->assertEquals($length, strlen($stub));
+        $this->assertEquals($length, Util::safeStrlen($stub));
         $this->assertNotEquals($not, $stub);
     }
 

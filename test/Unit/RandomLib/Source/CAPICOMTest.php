@@ -3,6 +3,7 @@
 namespace RandomLib\Source;
 
 use SecurityLib\Strength;
+use SecurityLib\Util;
 
 class CAPICOMTest extends \PHPUnit_Framework_TestCase {
 
@@ -30,7 +31,7 @@ class CAPICOMTest extends \PHPUnit_Framework_TestCase {
     public function testGenerate($length, $not) {
         $rand = new CAPICOM;
         $stub = $rand->generate($length);
-        $this->assertEquals($length, strlen($stub));
+        $this->assertEquals($length, Util::safeStrlen($stub));
     }
 
 }

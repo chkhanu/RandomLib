@@ -3,7 +3,7 @@
 namespace RandomLib\Source;
 
 use SecurityLib\Strength;
-
+use SecurityLib\Util;
 
 
 class URandomTest extends \PHPUnit_Framework_TestCase {
@@ -32,7 +32,7 @@ class URandomTest extends \PHPUnit_Framework_TestCase {
     public function testGenerate($length, $not) {
         $rand = new URandom;
         $stub = $rand->generate($length);
-        $this->assertEquals($length, strlen($stub));
+        $this->assertEquals($length, Util::safeStrlen($stub));
         if (file_exists('/dev/urandom')) {
             $this->assertNotEquals($not, $stub);
         } else {
