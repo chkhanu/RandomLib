@@ -18,6 +18,7 @@
 namespace RandomLib;
 
 use SecurityLib\BaseConverter;
+use SecurityLib\Util;
 
 /**
  * The Random Number Generator Class
@@ -268,7 +269,7 @@ class Generator {
                 if (ord($rand[$i]) >= $mask) {
                     continue;
                 }
-                $result .= $characters[ord($rand[$i]) % $len];
+                $result .= substr($characters, ord($rand[$i]) % $len, 1);
             }
         } while (strlen($result) < $length);
         // We may over-generate, since we always use the entire buffer

@@ -14,6 +14,8 @@
 
 namespace RandomLib;
 
+use \SecurityLib\Util;
+
 /**
  * An abstract mixer to implement a common mixing strategy
  *
@@ -64,7 +66,7 @@ abstract class AbstractMixer implements \RandomLib\Mixer {
         if (empty($parts)) {
             return '';
         }
-        $len        = strlen($parts[0]);
+        $len        = Util::safeStrlen($parts[0]);
         $parts      = $this->normalizeParts($parts);
         $stringSize = count($parts[0]);
         $partsSize  = count($parts);
@@ -84,7 +86,7 @@ abstract class AbstractMixer implements \RandomLib\Mixer {
             $result .= $stub;
             $offset  = ($offset + 1) % $partsSize;
         }
-        return substr($result, 0, $len);
+        return Util::safeSubstr($result, 0, $len);
     }
 
     /**
@@ -100,7 +102,7 @@ abstract class AbstractMixer implements \RandomLib\Mixer {
     protected function normalizeParts(array $parts) {
         $blockSize = $this->getPartSize();
         $callback  = function($value) {
-            return strlen($value);
+            return Util::safeStrlen($value);
         };
         $maxSize = max(array_map($callback, $parts));
         if ($maxSize % $blockSize != 0) {
